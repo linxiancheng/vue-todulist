@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue-todolist2-demo</title>
+	<script type="text/javascript" src="vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" name="" v-model='val' placeholder="请输入内容....">
+		<button v-on:click='tijiao'>提交</button>
+		<ul>
+			<todolist :nei = "lists"
+			 		  :index = "index"
+			  		  v-for = "(lists , index) in list">
+			</todolist>
+		</ul>
+	</div>
+
+<script>
+	var todolists ={
+		props: ['nei','index'],
+		template:"<li @click='del'>{{nei}}</li>",
+		methods: {
+			del : function(){
+				app.$data.list.splice(this.index,1);
+			}
+		}
+	}
+	var app = new Vue({
+		el:'#app',
+		components: {
+			todolist:todolists
+		},
+		data:{
+			list:[],
+			val:''
+		},
+		methods: {
+			tijiao : function(){
+				if (this.val =='') {
+					alert('请输入内容...')
+				}
+				else{
+					this.list.push(this.val)
+					this.val=''
+				}
+			}
+			
+		}
+
+	})
+
+</script>
+</body>
+</html>
